@@ -11,7 +11,6 @@
 // }
 
 // const signUpReducer = (state = initialState, action) => {
-//     console.log(action.type, 'lllllllllll');
 //     switch (action.type) {
 //         case SIGNUP_REQUESTED: {
 //             return {

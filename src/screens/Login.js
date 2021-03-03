@@ -12,9 +12,9 @@ const Login = (props) => {
 
     const user = {
         "username": userName,
-        "password": password
+        "password": password,
+        "navigation": props.navigation,
     }
-
 
     return (
         <View style={styles.container}>
@@ -28,6 +28,7 @@ const Login = (props) => {
                 <Text style={styles.text}>Password : </Text>
                 <TextInput
                     style={styles.textInput}
+                    secureTextEntry={true}
                     value={password}
                     onChangeText={(text) => setPassword(text)}
                 />
@@ -37,7 +38,8 @@ const Login = (props) => {
                     style={styles.opacitySign}
                     onPress={() => {
                         props.loginRequested(user);
-                        props.navigation.navigate('Home');
+                        setUserName('');
+                        setPassword('');
                     }}
                 >
                     <Text style={styles.opacityText}> Log In </Text>
@@ -52,6 +54,8 @@ const Login = (props) => {
                     Sign Up
                 </Text>
             </View> */}
+            {/* {props.isError ? <Text> </Text>} */}
+            {/* {props.isSuccess ? props.navigation.navigate('Home') : null} */}
         </View>
     )
 }
@@ -109,6 +113,7 @@ const styles = StyleSheet.create({
 
 
 const mapStateToProps = (state) => {
+    console.log(state);
     return {
         isLoading: state.login.isLoading,
         isError: state.login.isError,
