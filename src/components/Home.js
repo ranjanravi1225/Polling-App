@@ -10,6 +10,7 @@ import {
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 import FontAwesome from 'react-native-vector-icons/FontAwesome5';
 import { Colors } from '../components/Colors';
+import AddUser from './AddUser';
 
 
 const Drawer = createDrawerNavigator();
@@ -76,6 +77,7 @@ const addUser = ({ navigation }) => {
                     <Text style={styles.headerText}> Add User </Text>
                 </View>
             </View>
+            <AddUser />
         </SafeAreaView>
     )
 }

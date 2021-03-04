@@ -5,7 +5,11 @@ import {
     SIGNUP_REQUESTED,
     SIGNUP_SUCCESS,
     SIGNUP_ERROR,
+    ADDUSER_REQUESTED,
+    ADDUSER_SUCCESS,
+    ADDUSER_ERROR,
 } from '../Constant/Type';
+
 
 export const loginRequested = (user) => {
     return {
@@ -28,6 +32,7 @@ export const loginError = () => {
     }
 }
 
+
 export const signUpRequested = (user) => {
     return {
         type: SIGNUP_REQUESTED,
@@ -44,5 +49,25 @@ export const signUpSuccess = () => {
 export const signUpError = () => {
     return {
         type: SIGNUP_ERROR,
+    }
+}
+
+
+export const addUserRequested = (user) => {
+    return {
+        type: ADDUSER_REQUESTED,
+        user
+    }
+}
+
+export const addUserSuccess = () => {
+    return {
+        type: ADDUSER_SUCCESS,
+    }
+}
+
+export const addUserError = () => {
+    return {
+        type: ADDUSER_ERROR,
     }
 }

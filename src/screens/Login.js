@@ -65,9 +65,6 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         alignItems: 'center'
     },
-    innerView: {
-
-    },
     text: {
         fontSize: 20,
         margin: 5
