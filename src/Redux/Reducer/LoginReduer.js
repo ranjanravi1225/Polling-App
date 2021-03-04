@@ -7,7 +7,7 @@ import {
 const initialState = {
     isLoading: false,
     isError: false,
-    isSuccess: false
+    isSuccess: false,
 }
 
 const loginReducer = (state = initialState, action) => {
@@ -23,7 +23,7 @@ const loginReducer = (state = initialState, action) => {
             return {
                 isLoading: false,
                 isError: false,
-                isSuccess: true
+                isSuccess: true,
             }
         }
         case LOGIN_ERROR: {

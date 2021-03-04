@@ -14,9 +14,10 @@ export const loginRequested = (user) => {
     }
 }
 
-export const loginSuccess = () => {
+export const loginSuccess = (username) => {
     return {
         type: LOGIN_SUCCESS,
+        username
     }
 }
 

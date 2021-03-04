@@ -10,11 +10,12 @@ export function* loginSaga(action) {
     if (action.user.username.length > 0 && action.user.password.length > 0) {
         try {
             const response = yield call(async () => {
-                await axios.post(`${environment.apiBase}/login?username=${action.user.username}&password=${action.user.password}`)
+                await axios.get(`${environment.apiBase}/login?username=${action.user.username}&password=${action.user.password}`)
                     .then(async (res) => {
                         if (res.data.error) {
                             alert(res.data.data)
                         } else {
+                            await AsyncStorage.setItem("username", action.user.username)
                             action.user.navigation.navigate('Home');
                         }
                         await AsyncStorage.setItem("token", res.data.token)
@@ -23,6 +24,7 @@ export function* loginSaga(action) {
             })
             if (responseToken) {
                 yield put(loginSuccess(responseToken))
+
             } else {
                 yield put(loginError({ error: "invalid user" }))
             }
