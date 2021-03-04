@@ -10,6 +10,7 @@ const Login = (props) => {
     const [userName, setUserName] = useState('');
     const [password, setPassword] = useState('');
 
+
     const user = {
         "username": userName,
         "password": password,
@@ -38,8 +39,6 @@ const Login = (props) => {
                     style={styles.opacitySign}
                     onPress={() => {
                         props.loginRequested(user);
-                        setUserName('');
-                        setPassword('');
                     }}
                 >
                     <Text style={styles.opacityText}> Log In </Text>
@@ -113,7 +112,6 @@ const styles = StyleSheet.create({
 
 
 const mapStateToProps = (state) => {
-    console.log(state);
     return {
         isLoading: state.login.isLoading,
         isError: state.login.isError,
