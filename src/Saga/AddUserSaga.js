@@ -26,8 +26,9 @@ export function* addUserSaga(action) {
                 action.user.setPassword('')
                 action.user.setSelectedValue('')
                 alert("User added sucessfully")
+                yield put({ type: GETALL_USERS, getAllUsers });
             }
-            yield put({ type: GETALL_USERS, getAllUsers });
+
 
             if (!responseToken) {
                 yield put(addUserSuccess({ message: 'user added successfully' }))
