@@ -11,7 +11,7 @@ import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 import FontAwesome from 'react-native-vector-icons/FontAwesome5';
 import { Colors } from '../components/Colors';
 import AddUser from './AddUser';
-
+import AllUsers from './AllUsers';
 
 const Drawer = createDrawerNavigator();
 
@@ -94,6 +94,7 @@ const allUsers = ({ navigation }) => {
                     <Text style={styles.headerText}> All Users </Text>
                 </View>
             </View>
+            <AllUsers />
         </SafeAreaView>
     )
 }
@@ -152,7 +153,7 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         justifyContent: 'space-between',
         padding: 5,
-        minHeight: 70,
+        height: 70,
     },
     headerFontIcon: {
         alignSelf: 'center',

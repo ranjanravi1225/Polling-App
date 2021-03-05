@@ -8,6 +8,8 @@ import {
     ADDUSER_REQUESTED,
     ADDUSER_SUCCESS,
     ADDUSER_ERROR,
+    GETALL_USERS,
+    RECEIVEALL_USERS,
 } from '../Constant/Type';
 
 
@@ -69,5 +71,20 @@ export const addUserSuccess = () => {
 export const addUserError = () => {
     return {
         type: ADDUSER_ERROR,
+    }
+}
+
+
+
+export const getAllUsers = () => {
+    return {
+        type: GETALL_USERS,
+    }
+}
+
+export const receiveAllUsers = (user) => {
+    return {
+        type: RECEIVEALL_USERS,
+        user
     }
 }
