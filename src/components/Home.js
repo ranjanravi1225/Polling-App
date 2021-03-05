@@ -12,6 +12,7 @@ import FontAwesome from 'react-native-vector-icons/FontAwesome5';
 import { Colors } from '../components/Colors';
 import AddUser from './AddUser';
 import AllUsers from './AllUsers';
+import AllPolls from './AllPolls';
 
 const Drawer = createDrawerNavigator();
 
@@ -126,6 +127,7 @@ const allPolls = ({ navigation }) => {
                     <Text style={styles.headerText}> All Polls </Text>
                 </View>
             </View>
+            <AllPolls />
         </SafeAreaView>
     )
 }

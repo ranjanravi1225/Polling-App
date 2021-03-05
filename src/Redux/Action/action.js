@@ -10,6 +10,8 @@ import {
     ADDUSER_ERROR,
     GETALL_USERS,
     RECEIVEALL_USERS,
+    GETALL_POLLS,
+    RECEIVEDALL_POLLS,
 } from '../Constant/Type';
 
 
@@ -86,5 +88,20 @@ export const receiveAllUsers = (user) => {
     return {
         type: RECEIVEALL_USERS,
         user
+    }
+}
+
+
+
+export const getAllPolls = () => {
+    return {
+        type: GETALL_POLLS
+    }
+}
+
+export const receivedAllPolls = (polls) => {
+    return {
+        type: RECEIVEDALL_POLLS,
+        polls
     }
 }
