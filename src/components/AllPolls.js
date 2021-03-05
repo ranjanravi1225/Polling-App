@@ -44,9 +44,6 @@ const styles = StyleSheet.create({
 
 
 const mapStateToProps = (state) => {
-    console.log(state, 'sssssssssss');
-    console.log(state.allPolls.pollData, 'wwwwwwwwwww');
-
     return {
         isLoading: state.allPolls.isLoading,
         pollData: state.allPolls.pollData
