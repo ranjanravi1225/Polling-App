@@ -13,8 +13,9 @@ export default function PollData(props) {
             <Text style={{ fontWeight: 'bold', fontSize: 15 }}> {props.index} : {props.item.title} </Text>
             <FlatList
                 data={props.item.options}
+                keyExtractor={(item, idx) => idx.toString()}
                 renderItem={({ item, index }) => (
-                    <Text style={{ fontSize: 15 }}> {index + 1}: {item.option} </Text>
+                    <Text style={{ fontSize: 15, margin: 5 }}> {index + 1}: {item.option} </Text>
                 )}
             />
         </View>
@@ -23,7 +24,6 @@ export default function PollData(props) {
 
 const styles = StyleSheet.create({
     flatlistView: {
-        marginTop: 15,
         minHeight: 70,
         minWidth: 70,
         borderBottomWidth: 1,

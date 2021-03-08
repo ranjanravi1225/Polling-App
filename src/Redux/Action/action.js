@@ -12,6 +12,11 @@ import {
     RECEIVEALL_USERS,
     GETALL_POLLS,
     RECEIVEDALL_POLLS,
+    ADD_POLL,
+    REMOVE_OPTION,
+    ADDPOLL_REQUESTED,
+    ADDPOLL_SUCCESS,
+    ADDPOLL_ERROR
 } from '../Constant/Type';
 
 
@@ -103,5 +108,39 @@ export const receivedAllPolls = (polls) => {
     return {
         type: RECEIVEDALL_POLLS,
         polls
+    }
+}
+
+
+export const addOption = (text) => {
+    return {
+        type: ADD_POLL,
+        text
+    }
+}
+
+export const removeOption = (key) => {
+    return {
+        type: REMOVE_OPTION,
+        key
+    }
+}
+
+export const addPollRequested = (poll) => {
+    return {
+        type: ADDPOLL_REQUESTED,
+        poll
+    }
+}
+
+export const addPollSuccess = () => {
+    return {
+        type: ADDPOLL_SUCCESS,
+    }
+}
+
+export const addPollError = () => {
+    return {
+        type: ADDPOLL_ERROR,
     }
 }
