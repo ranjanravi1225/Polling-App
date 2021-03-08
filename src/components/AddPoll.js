@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { StyleSheet, View, Text, TextInput, TouchableOpacity, ActivityIndicator, Dimensions, FlatList } from 'react-native';
+import { StyleSheet, View, Text, TextInput, TouchableOpacity, ActivityIndicator, Dimensions, FlatList, ScrollView } from 'react-native';
 import { Colors } from './Colors';
 import Entypo from 'react-native-vector-icons/Entypo';
 import { connect } from "react-redux";
@@ -19,14 +19,14 @@ const AddPoll = (props) => {
 
     return (
         <View style={styles.container}>
-            <View style={{ borderWidth: 1, height: Dimensions.get('window').height - 150, }}>
+            <View style={styles.titleView}>
                 <TextInput
                     style={styles.titleInput}
                     numberOfLines={5}
                     value={title}
                     onChangeText={(text) => setTiltle(text)}
                 />
-                <View style={{ height: 250 }}>
+                <View style={styles.outerFlatlistView}>
                     <FlatList
                         data={props.option}
                         renderItem={({ item }) => (
@@ -61,7 +61,7 @@ const AddPoll = (props) => {
                     </TouchableOpacity>
                 </View>
             </View>
-            <View>
+            <View style={{ alignItems: "center" }}>
                 {props.isLoading ? <ActivityIndicator size={50} color={Colors.skyBlue} /> :
 
                     <TouchableOpacity
@@ -82,7 +82,10 @@ const AddPoll = (props) => {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        alignItems: 'center',
+    },
+    titleView: {
+        alignSelf: 'center',
+        height: Dimensions.get('window').height - 150,
     },
     titleInput: {
         borderWidth: 1,
@@ -90,6 +93,10 @@ const styles = StyleSheet.create({
         width: Dimensions.get('window').width - 50,
         height: 250,
         padding: 15
+    },
+    outerFlatlistView: {
+        alignSelf: 'center',
+        width: Dimensions.get('window').width - 50
     },
     flatlistView: {
         flexDirection: 'row',
