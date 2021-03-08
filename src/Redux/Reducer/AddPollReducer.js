@@ -16,7 +16,7 @@ const initialState = {
 const addPollReducer = (state = initialState, action) => {
     switch (action.type) {
         case ADD_POLL: {
-            if (action.text.trim().length > 0) {
+            if (action?.text?.trim()?.length > 0) {
                 return {
                     option: [
                         ...state.option,
@@ -32,7 +32,7 @@ const addPollReducer = (state = initialState, action) => {
         }
 
         case REMOVE_OPTION: {
-            const updatedOptionList = state.option.filter(item => item.key !== action.key)
+            const updatedOptionList = state?.option?.filter(item => item.key !== action.key)
             return {
                 option: updatedOptionList
             }

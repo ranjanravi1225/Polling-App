@@ -18,9 +18,6 @@ import { getPollsSaga } from './GetPollsSaga';
 import { addPollSaga } from './AddPollSaga';
 
 
-
-
-
 function* watchMan() {
     yield takeLatest(LOGIN_REQUESTED, loginSaga);
     yield takeLatest(ADDUSER_REQUESTED, addUserSaga);

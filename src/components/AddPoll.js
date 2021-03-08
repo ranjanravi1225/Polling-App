@@ -19,7 +19,7 @@ const AddPoll = (props) => {
 
     return (
         <View style={styles.container}>
-            <View style={styles.titleView}>
+            <ScrollView>
                 <TextInput
                     style={styles.titleInput}
                     numberOfLines={5}
@@ -60,21 +60,22 @@ const AddPoll = (props) => {
                         <Text style={styles.touchableText}> Add Option </Text>
                     </TouchableOpacity>
                 </View>
-            </View>
-            <View style={{ alignItems: "center" }}>
-                {props.isLoading ? <ActivityIndicator size={50} color={Colors.skyBlue} /> :
+                <View style={{ alignItems: "center" }}>
+                    {props.isLoading ? <ActivityIndicator size={50} color={Colors.skyBlue} /> :
 
-                    <TouchableOpacity
-                        style={styles.saveTouchable}
-                        onPress={() => {
-                            props.addPollRequested(poll)
-                        }
-                        }
-                    >
-                        <Text style={styles.saveText}> SAVE POLL </Text>
-                    </TouchableOpacity>
-                }
-            </View>
+                        <TouchableOpacity
+                            style={styles.saveTouchable}
+                            onPress={() => {
+                                props.addPollRequested(poll)
+                            }
+                            }
+                        >
+                            <Text style={styles.saveText}> SAVE POLL </Text>
+                        </TouchableOpacity>
+                    }
+                </View>
+            </ScrollView>
+
         </View>
     )
 }
@@ -83,16 +84,13 @@ const styles = StyleSheet.create({
     container: {
         flex: 1,
     },
-    titleView: {
-        alignSelf: 'center',
-        height: Dimensions.get('window').height - 150,
-    },
     titleInput: {
         borderWidth: 1,
         margin: 10,
         width: Dimensions.get('window').width - 50,
         height: 250,
-        padding: 15
+        padding: 15,
+        alignSelf: 'center'
     },
     outerFlatlistView: {
         alignSelf: 'center',
