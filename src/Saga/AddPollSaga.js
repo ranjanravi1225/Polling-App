@@ -9,11 +9,12 @@ import {
 
 
 export function* addPollSaga(action) {
-    let option = ''
-    action.poll.option.forEach((a, i) => {
-        option = option.concat((i == 0 ? a.option : `____${a.option}`))
-    })
-    if (action.poll.title.length > 0 && option.length > 0) {
+
+    if (action.poll.title.length > 0 && action.poll.option.length > 0) {
+        let option = ''
+        action.poll.option.forEach((a, i) => {
+            option = option.concat((i == 0 ? a.option : `____${a.option}`))
+        })
         try {
             const response = yield call(async () => {
                 const result = await axios.get(`${environment.apiBase}/add_poll?title=${action.poll.title}&options=${option}`)
@@ -25,10 +26,9 @@ export function* addPollSaga(action) {
             else {
                 alert("New Poll added sucessfully")
                 action.poll.setTiltle('')
+                action.poll.setOptionText('')
                 yield put({ type: GETALL_POLLS, getAllPolls });
             }
-
-
             if (response) {
                 yield put(addPollSuccess({ message: 'Poll added successfully' }))
 
