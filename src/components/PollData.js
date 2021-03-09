@@ -44,9 +44,9 @@ const PollData = (props) => {
 
     const updatePollTitle = (title, id) => {
         showModal(true)
-        const arr = props.pollData.filter((e) => e._id == id)
-        setEditTitle(arr[0].title)
-        setId(arr[0]._id)
+        const arr = props.pollData.find((e) => e._id == id)
+        setEditTitle(arr.title)
+        setId(arr._id)
     }
 
 
