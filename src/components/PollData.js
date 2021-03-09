@@ -21,19 +21,11 @@ const PollData = (props) => {
 
     const [modalValue, setModalValue] = useState(false);
     const [editTitle, setEditTitle] = useState('')
+    const [id, setId] = useState('')
+
 
     const showModal = () => {
         setModalValue(!modalValue);
-    }
-
-
-    let temp = "";
-    let temp1 = "";
-
-    if (editTitle.length > 0) {
-        const { title, _id } = editTitle[0]
-        temp = title,
-            temp1 = _id
     }
 
     const removePollAlert = () =>
@@ -53,7 +45,8 @@ const PollData = (props) => {
     const updatePollTitle = (title, id) => {
         showModal(true)
         const arr = props.pollData.filter((e) => e._id == id)
-        setEditTitle(arr)
+        setEditTitle(arr[0].title)
+        setId(arr[0]._id)
     }
 
 
@@ -92,9 +85,9 @@ const PollData = (props) => {
                     modalValue={modalValue}
                     setModalValue={setModalValue}
                     showModal={showModal}
-                    temp={temp}
-                    temp1={temp1}
                     requestEditTitle={props.requestEditTitle}
+                    editTitle={editTitle}
+                    id={id}
 
                 />
             ) : null}

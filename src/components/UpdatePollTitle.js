@@ -13,13 +13,11 @@ import { connect } from "react-redux";
 
 const UpdatePollTitle = (props) => {
 
-    const [titleText, setTitleText] = useState(props.temp);
-    const [titleId, setTitleId] = useState(props.temp1);
-
+    const [titleText, setTitleText] = useState(props.editTitle);
 
     const data = {
         "newTitle": titleText,
-        "id": titleId,
+        "id": props.id,
         "showModal": props.showModal
     }
 
