@@ -16,7 +16,9 @@ import {
     REMOVE_OPTION,
     ADDPOLL_REQUESTED,
     ADDPOLL_SUCCESS,
-    ADDPOLL_ERROR
+    ADDPOLL_ERROR,
+    REMOVE_POLL,
+    REQUESTREMOVE_POLL,
 } from '../Constant/Type';
 
 
@@ -142,5 +144,21 @@ export const addPollSuccess = () => {
 export const addPollError = () => {
     return {
         type: ADDPOLL_ERROR,
+    }
+}
+
+
+
+export const removePoll = () => {
+    return {
+        type: REMOVE_POLL,
+
+    }
+}
+
+export const requestRemovePoll = (id) => {
+    return {
+        type: REQUESTREMOVE_POLL,
+        id
     }
 }

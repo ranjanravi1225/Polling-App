@@ -8,7 +8,8 @@ import {
     ADDUSER_REQUESTED,
     GETALL_USERS,
     GETALL_POLLS,
-    ADDPOLL_REQUESTED
+    ADDPOLL_REQUESTED,
+    REQUESTREMOVE_POLL,
 } from '../Redux/Constant/Type';
 import { loginSaga } from './LoginSaga';
 // import { signUpSaga } from './SignUpSaga';
@@ -16,6 +17,8 @@ import { addUserSaga } from './AddUserSaga';
 import { getUsersSaga } from './GetUsersSaga';
 import { getPollsSaga } from './GetPollsSaga';
 import { addPollSaga } from './AddPollSaga';
+import { removePollSaga } from './RemovePollSaga';
+
 
 
 function* watchMan() {
@@ -24,6 +27,7 @@ function* watchMan() {
     yield takeLatest(GETALL_USERS, getUsersSaga);
     yield takeLatest(GETALL_POLLS, getPollsSaga);
     yield takeLatest(ADDPOLL_REQUESTED, addPollSaga);
+    yield takeLatest(REQUESTREMOVE_POLL, removePollSaga);
     // yield takeLatest(SIGNUP_REQUESTED, signUpSaga);
 }
 
