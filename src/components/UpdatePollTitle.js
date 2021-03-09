@@ -17,7 +17,7 @@ const UpdatePollTitle = (props) => {
 
     const data = {
         "newTitle": titleText,
-        "id": props.id,
+        "id": props.editid,
         "showModal": props.showModal
     }
 

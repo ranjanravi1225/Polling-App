@@ -21,7 +21,7 @@ const PollData = (props) => {
 
     const [modalValue, setModalValue] = useState(false);
     const [editTitle, setEditTitle] = useState('')
-    const [id, setId] = useState('')
+    const [editid, setEditId] = useState('')
 
 
     const showModal = () => {
@@ -44,12 +44,10 @@ const PollData = (props) => {
 
     const updatePollTitle = (title, id) => {
         showModal(true)
-        const arr = props.pollData.find((e) => e._id == id)
-        setEditTitle(arr.title)
-        setId(arr._id)
+        const editPoll = props.pollData.find((e) => e._id == id)
+        setEditTitle(editPoll.title)
+        setEditId(editPoll._id)
     }
-
-
 
     return (
         <>
@@ -87,7 +85,7 @@ const PollData = (props) => {
                     showModal={showModal}
                     requestEditTitle={props.requestEditTitle}
                     editTitle={editTitle}
-                    id={id}
+                    editid={editid}
 
                 />
             ) : null}
