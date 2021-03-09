@@ -27,7 +27,7 @@ const addPollReducer = (state = initialState, action) => {
                     ],
                 };
             } else {
-                alert("List can't be empty");
+                alert("Text can't be empty");
             }
         }
 

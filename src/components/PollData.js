@@ -21,7 +21,7 @@ const PollData = (props) => {
     const removePollAlert = () =>
         Alert.alert(
             "Confirmation",
-            "Do you want to delete this poll",
+            "Do you want to delete this poll?",
             [
                 {
                     text: "Cancel",
