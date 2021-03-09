@@ -1,20 +1,40 @@
-import React from "react";
+import React, { useState } from "react";
 import {
     FlatList,
     StyleSheet,
     Text,
     View,
     Dimensions,
-    Alert
+    Alert,
+    TouchableOpacity
 } from "react-native";
-import { TouchableOpacity } from "react-native-gesture-handler";
 import AntDesign from 'react-native-vector-icons/AntDesign';
 import { requestRemovePoll } from '../Redux/Action/action';
+import { requestEditTitle } from '../Redux/Action/action';
 import { connect } from "react-redux";
+import { Colors } from "./Colors";
+import UpdatePollTitle from './UpdatePollTitle';
 
 
 
 const PollData = (props) => {
+
+    const [modalValue, setModalValue] = useState(false);
+    const [editTitle, setEditTitle] = useState('')
+
+    const showModal = () => {
+        setModalValue(!modalValue);
+    }
+
+
+    let temp = "";
+    let temp1 = "";
+
+    if (editTitle.length > 0) {
+        const { title, _id } = editTitle[0]
+        temp = title,
+            temp1 = _id
+    }
 
     const removePollAlert = () =>
         Alert.alert(
@@ -30,27 +50,55 @@ const PollData = (props) => {
             { cancelable: false }
         );
 
-    return (
-        <View style={styles.flatlistView}>
-            <View style={{ width: Dimensions.get('window').width - 80, }}>
-                <Text style={{ fontWeight: 'bold', fontSize: 15 }}> {props.index} : {props.item.title} </Text>
-                <FlatList
-                    data={props.item.options}
-                    keyExtractor={(item, idx) => idx.toString()}
-                    renderItem={({ item, index }) => (
-                        <Text style={{ fontSize: 15, margin: 5 }}> {index + 1}: {item.option} </Text>
-                    )}
-                />
-            </View>
-            <View style={styles.deleteView}>
-                <TouchableOpacity
-                    onPress={removePollAlert}
-                >
-                    <AntDesign name='delete' size={35} />
-                </TouchableOpacity>
+    const updatePollTitle = (title, id) => {
+        showModal(true)
+        const arr = props.pollData.filter((e) => e._id == id)
+        setEditTitle(arr)
+    }
 
+
+
+    return (
+        <>
+            <View style={styles.flatlistView}>
+                <View style={{ width: Dimensions.get('window').width - 80, }}>
+                    <TouchableOpacity
+                        style={{ backgroundColor: Colors.lightGray }}
+                        onPress={() => {
+                            updatePollTitle(props.item.title, props.item._id)
+                        }}
+                    >
+                        <Text style={{ fontWeight: 'bold', fontSize: 15 }}> {props.index} : {props.item.title} </Text>
+                    </TouchableOpacity>
+                    <FlatList
+                        data={props.item.options}
+                        keyExtractor={(item, idx) => idx.toString()}
+                        renderItem={({ item, index }) => (
+                            <Text style={{ fontSize: 15, margin: 5 }}> {index + 1}: {item.option} </Text>
+                        )}
+                    />
+                </View>
+                <View style={styles.deleteView}>
+                    <TouchableOpacity
+                        onPress={removePollAlert}
+                    >
+                        <AntDesign name='delete' size={35} />
+                    </TouchableOpacity>
+
+                </View>
             </View>
-        </View>
+            {modalValue ? (
+                <UpdatePollTitle
+                    modalValue={modalValue}
+                    setModalValue={setModalValue}
+                    showModal={showModal}
+                    temp={temp}
+                    temp1={temp1}
+                    requestEditTitle={props.requestEditTitle}
+
+                />
+            ) : null}
+        </>
     )
 }
 
@@ -69,11 +117,17 @@ const styles = StyleSheet.create({
     }
 });
 
-
-const mapdispatchToProps = (Dispatch) => {
+const mapStateToProps = (state) => {
     return {
-        requestRemovePoll: (id) => Dispatch(requestRemovePoll(id))
+        pollData: state.allPolls.pollData,
     };
 };
 
-export default connect(null, mapdispatchToProps)(PollData);
+const mapdispatchToProps = (Dispatch) => {
+    return {
+        requestRemovePoll: (id) => Dispatch(requestRemovePoll(id)),
+        requestEditTitle: (data) => Dispatch(requestEditTitle(data))
+    };
+};
+
+export default connect(mapStateToProps, mapdispatchToProps)(PollData);

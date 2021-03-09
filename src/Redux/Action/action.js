@@ -19,6 +19,8 @@ import {
     ADDPOLL_ERROR,
     REMOVE_POLL,
     REQUESTREMOVE_POLL,
+    REQUESTEDIT_TITLE,
+    SUCCESSEDIT_TITLE,
 } from '../Constant/Type';
 
 
@@ -129,6 +131,7 @@ export const removeOption = (key) => {
 }
 
 export const addPollRequested = (poll) => {
+    requestRemovePoll
     return {
         type: ADDPOLL_REQUESTED,
         poll
@@ -160,5 +163,19 @@ export const requestRemovePoll = (id) => {
     return {
         type: REQUESTREMOVE_POLL,
         id
+    }
+}
+
+
+export const requestEditTitle = (data) => {
+    return {
+        type: REQUESTEDIT_TITLE,
+        data
+    }
+}
+
+export const successEditTitle = () => {
+    return {
+        type: SUCCESSEDIT_TITLE,
     }
 }
