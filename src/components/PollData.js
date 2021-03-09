@@ -5,14 +5,12 @@ import {
     Text,
     View,
     Dimensions,
-    ActivityIndicator,
     Alert
 } from "react-native";
 import { TouchableOpacity } from "react-native-gesture-handler";
 import AntDesign from 'react-native-vector-icons/AntDesign';
 import { requestRemovePoll } from '../Redux/Action/action';
 import { connect } from "react-redux";
-import { Colors } from "./Colors";
 
 
 
@@ -71,11 +69,6 @@ const styles = StyleSheet.create({
     }
 });
 
-const mapStateToProps = (state) => {
-    return {
-        isLoading: state.removePoll.isLoading,
-    };
-};
 
 const mapdispatchToProps = (Dispatch) => {
     return {
@@ -83,4 +76,4 @@ const mapdispatchToProps = (Dispatch) => {
     };
 };
 
-export default connect(mapStateToProps, mapdispatchToProps)(PollData);
+export default connect(null, mapdispatchToProps)(PollData);
