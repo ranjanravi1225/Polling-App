@@ -4,18 +4,18 @@ import {
 } from 'redux-saga/effects';
 import {
     LOGIN_REQUESTED,
-    // SIGNUP_REQUESTED,
     ADDUSER_REQUESTED,
     GETALL_USERS,
-    GETALL_POLLS
+    GETALL_POLLS,
+    ADDPOLL_REQUESTED,
+    REQUESTREMOVE_POLL,
 } from '../Redux/Constant/Type';
 import { loginSaga } from './LoginSaga';
-// import { signUpSaga } from './SignUpSaga';
 import { addUserSaga } from './AddUserSaga';
 import { getUsersSaga } from './GetUsersSaga';
 import { getPollsSaga } from './GetPollsSaga';
-
-
+import { addPollSaga } from './AddPollSaga';
+import { removePollSaga } from './RemovePollSaga';
 
 
 
@@ -24,7 +24,8 @@ function* watchMan() {
     yield takeLatest(ADDUSER_REQUESTED, addUserSaga);
     yield takeLatest(GETALL_USERS, getUsersSaga);
     yield takeLatest(GETALL_POLLS, getPollsSaga);
-    // yield takeLatest(SIGNUP_REQUESTED, signUpSaga);
+    yield takeLatest(ADDPOLL_REQUESTED, addPollSaga);
+    yield takeLatest(REQUESTREMOVE_POLL, removePollSaga);
 }
 
 export default function* rootSaga() {

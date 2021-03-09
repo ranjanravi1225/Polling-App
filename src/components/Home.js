@@ -2,17 +2,18 @@ import React, { useState, useEffect } from 'react';
 import { StyleSheet, View, Text, TouchableOpacity, SafeAreaView } from 'react-native';
 import AsyncStorage from '@react-native-community/async-storage';
 import { createDrawerNavigator } from '@react-navigation/drawer';
-
 import {
     DrawerContentScrollView,
     DrawerItemList,
 } from '@react-navigation/drawer';
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
-import FontAwesome from 'react-native-vector-icons/FontAwesome5';
 import { Colors } from '../components/Colors';
 import AddUser from './AddUser';
 import AllUsers from './AllUsers';
 import AllPolls from './AllPolls';
+import ScreenHeader from './ScreenHeader';
+import AddPoll from './AddPoll';
+
 
 const Drawer = createDrawerNavigator();
 
@@ -54,14 +55,7 @@ const CustomDrawerContent = (props) => {
 const MyDrawer = ({ navigation }) => {
     return (
         <SafeAreaView style={styles.container}>
-            <View style={styles.headerView}>
-                <TouchableOpacity style={styles.headerFontIcon} onPress={() => navigation.openDrawer()}>
-                    <FontAwesome name="bars" size={40} />
-                </TouchableOpacity>
-                <View style={styles.headerTextView}>
-                    <Text style={styles.headerText}> Home </Text>
-                </View>
-            </View>
+            <ScreenHeader navigation={navigation} type="Home" />
         </SafeAreaView>
     )
 }
@@ -70,14 +64,7 @@ const MyDrawer = ({ navigation }) => {
 const addUser = ({ navigation }) => {
     return (
         <SafeAreaView style={styles.container}>
-            <View style={styles.headerView}>
-                <TouchableOpacity style={styles.headerFontIcon} onPress={() => navigation.openDrawer()}>
-                    <FontAwesome name="bars" size={40} />
-                </TouchableOpacity>
-                <View style={styles.headerTextView}>
-                    <Text style={styles.headerText}> Add User </Text>
-                </View>
-            </View>
+            <ScreenHeader navigation={navigation} type="Add User" />
             <AddUser />
         </SafeAreaView>
     )
@@ -87,14 +74,7 @@ const addUser = ({ navigation }) => {
 const allUsers = ({ navigation }) => {
     return (
         <SafeAreaView style={styles.container}>
-            <View style={styles.headerView}>
-                <TouchableOpacity style={styles.headerFontIcon} onPress={() => navigation.openDrawer()}>
-                    <FontAwesome name="bars" size={40} />
-                </TouchableOpacity>
-                <View style={styles.headerTextView}>
-                    <Text style={styles.headerText}> All Users </Text>
-                </View>
-            </View>
+            <ScreenHeader navigation={navigation} type="All Users" />
             <AllUsers />
         </SafeAreaView>
     )
@@ -104,14 +84,8 @@ const allUsers = ({ navigation }) => {
 const addPoll = ({ navigation }) => {
     return (
         <SafeAreaView style={styles.container}>
-            <View style={styles.headerView}>
-                <TouchableOpacity style={styles.headerFontIcon} onPress={() => navigation.openDrawer()}>
-                    <FontAwesome name="bars" size={40} />
-                </TouchableOpacity>
-                <View style={styles.headerTextView}>
-                    <Text style={styles.headerText}> Add Poll </Text>
-                </View>
-            </View>
+            <ScreenHeader navigation={navigation} type="Add Poll" />
+            <AddPoll />
         </SafeAreaView>
     )
 }
@@ -119,14 +93,7 @@ const addPoll = ({ navigation }) => {
 const allPolls = ({ navigation }) => {
     return (
         <SafeAreaView style={styles.container}>
-            <View style={styles.headerView}>
-                <TouchableOpacity style={styles.headerFontIcon} onPress={() => navigation.openDrawer()}>
-                    <FontAwesome name="bars" size={40} />
-                </TouchableOpacity>
-                <View style={styles.headerTextView}>
-                    <Text style={styles.headerText}> All Polls </Text>
-                </View>
-            </View>
+            <ScreenHeader navigation={navigation} type="All Polls" />
             <AllPolls />
         </SafeAreaView>
     )
@@ -149,29 +116,6 @@ const styles = StyleSheet.create({
     container: {
         flex: 1,
         marginTop: 30
-    },
-    headerView: {
-        borderBottomWidth: 1,
-        flexDirection: 'row',
-        justifyContent: 'space-between',
-        padding: 5,
-        height: 70,
-    },
-    headerFontIcon: {
-        alignSelf: 'center',
-        marginLeft: 5
-    },
-    headerTextView: {
-        justifyContent: 'center',
-        marginRight: 150,
-    },
-    headerText: {
-        fontSize: 20,
-        fontWeight: 'bold'
-    },
-    item: {
-        flexDirection: 'row',
-        alignItems: 'center',
     },
     profileView: {
         flexDirection: 'row',

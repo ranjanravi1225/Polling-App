@@ -46,7 +46,7 @@ const styles = StyleSheet.create({
 const mapStateToProps = (state) => {
     return {
         isLoading: state.allPolls.isLoading,
-        pollData: state.allPolls.pollData
+        pollData: state.allPolls.pollData,
     };
 };
 
