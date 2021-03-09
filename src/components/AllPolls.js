@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import {
     FlatList,
     StyleSheet,
@@ -13,11 +13,13 @@ import PollData from './PollData';
 
 
 
+
 const AllPolls = (props) => {
 
     useEffect(() => {
         props.allPolls();
     }, []);
+
 
     return (
         <SafeAreaView style={styles.firstView}>

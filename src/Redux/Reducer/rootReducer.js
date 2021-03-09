@@ -5,7 +5,7 @@ import getUsersReducer from './GetUsersReducer';
 import getPollsReducer from './GetPollsReducer';
 import addPollReducer from './AddPollReducer';
 import removePollReducer from './RemovePollReducer';
-
+import editPollTitleReducer from './EditPollTitleReducer';
 
 
 
@@ -16,6 +16,7 @@ const rootReducer = combineReducers({
     allPolls: getPollsReducer,
     addPoll: addPollReducer,
     removePoll: removePollReducer,
+    editPollTitle: editPollTitleReducer,
 })
 
 export default rootReducer;
