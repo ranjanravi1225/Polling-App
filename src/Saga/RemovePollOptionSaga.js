@@ -19,7 +19,7 @@ export function* removePollOptionSaga(action) {
         else {
             alert("Poll Option removed sucessfully")
             yield put({ type: GETALL_POLLS, getAllPolls });
-            yield put(PollOptionRemoved({ message: 'Poll removed successfully' }))
+            yield put(PollOptionRemoved({ message: 'Poll option removed successfully' }))
         }
     } catch (err) {
         console.error(err);

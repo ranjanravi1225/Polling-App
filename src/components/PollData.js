@@ -10,10 +10,13 @@ import {
 } from "react-native";
 import AntDesign from 'react-native-vector-icons/AntDesign';
 import { requestRemovePoll } from '../Redux/Action/action';
-import { requestEditTitle, requestRemovePollOption } from '../Redux/Action/action';
+import { requestEditTitle, requestRemovePollOption, requestAddNewOption } from '../Redux/Action/action';
 import { connect } from "react-redux";
 import { Colors } from "./Colors";
 import UpdatePollTitle from './UpdatePollTitle';
+import NewOptionModal from './/NewOptionModal';
+
+
 
 
 
@@ -22,10 +25,15 @@ const PollData = (props) => {
     const [modalValue, setModalValue] = useState(false);
     const [editTitle, setEditTitle] = useState('')
     const [editid, setEditId] = useState('')
-
+    const [newOptionId, setNewOptionId] = useState('')
+    const [newOptionModalValue, setNewOptionModalValue] = useState(false);
 
     const showModal = () => {
         setModalValue(!modalValue);
+    }
+
+    const showOptionModal = () => {
+        setNewOptionModalValue(!newOptionModalValue);
     }
 
     const removePollAlert = () =>
@@ -48,25 +56,45 @@ const PollData = (props) => {
         setEditId(editPoll._id)
     }
 
+    const getPollKey = (id) => {
+        showOptionModal(true)
+        const newOption = props.pollData.find((e) => e._id == id)
+        setNewOptionId(newOption._id)
+    }
+
     return (
         <>
             <View style={styles.flatlistView}>
                 <View style={{ width: Dimensions.get('window').width - 80, }}>
-                    <TouchableOpacity
-                        style={{ backgroundColor: Colors.lightGray }}
-                        onPress={() => {
-                            updatePollTitle(props.item.title, props.item._id)
-                        }}
-                    >
-                        <Text style={{ fontWeight: 'bold', fontSize: 15 }}> {props.index} : {props.item.title} </Text>
-                    </TouchableOpacity>
+                    <View style={{ flexDirection: 'row', justifyContent: 'space-between', backgroundColor: Colors.lightGray }}>
+                        <TouchableOpacity
+                            style={{ backgroundColor: Colors.lightGray }}
+                            onPress={() => {
+                                updatePollTitle(props.item.title, props.item._id)
+                            }}
+                        >
+                            <Text style={{ fontWeight: 'bold', fontSize: 15 }}> {props.index} : {props.item.title} </Text>
+                        </TouchableOpacity>
+                        <TouchableOpacity
+                            onPress={() => {
+                                getPollKey(props.item._id)
+                            }}
+                        >
+                            <AntDesign
+                                name="pluscircleo"
+                                size={20}
+                                color={Colors.skyBlue}
+                            />
+                        </TouchableOpacity>
+                    </View>
                     <FlatList
                         data={props.item.options}
                         keyExtractor={(item, idx) => idx.toString()}
                         renderItem={({ item, index }) => (
                             <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
-                                <Text style={{ fontSize: 15, margin: 5 }}> {index + 1}: {item.option} </Text>
+                                <Text style={{ fontSize: 15, marginTop: 10 }}> {index + 1}: {item.option} </Text>
                                 <TouchableOpacity
+                                    style={{ marginTop: 10 }}
                                     onPress={() =>
                                         Alert.alert(
                                             "Confirmation",
@@ -106,6 +134,17 @@ const PollData = (props) => {
                     editid={editid}
                 />
             ) : null}
+
+
+            {newOptionModalValue ? (
+                <NewOptionModal
+                    newOptionModalValue={newOptionModalValue}
+                    setNewOptionModalValue={setNewOptionModalValue}
+                    showOptionModal={showOptionModal}
+                    requestAddNewOption={props.requestAddNewOption}
+                    newOptionId={newOptionId}
+                />
+            ) : null}
         </>
     )
 }
@@ -136,6 +175,7 @@ const mapdispatchToProps = (Dispatch) => {
         requestRemovePoll: (id) => Dispatch(requestRemovePoll(id)),
         requestEditTitle: (data) => Dispatch(requestEditTitle(data)),
         requestRemovePollOption: (option, id) => Dispatch(requestRemovePollOption(option, id)),
+        requestAddNewOption: (data) => Dispatch(requestAddNewOption(data)),
     };
 };
 

@@ -22,7 +22,10 @@ import {
     REQUESTEDIT_TITLE,
     SUCCESSEDIT_TITLE,
     REQUESTREMOVE_POLLOPTION,
-    REMOVE_POLLOPTION
+    REMOVE_POLLOPTION,
+    REQUESTADD_NEWOPTION,
+    SUCESSADD_NEWOPTION,
+    ERRORADD_NEWOPTION,
 } from '../Constant/Type';
 
 
@@ -194,5 +197,25 @@ export const requestRemovePollOption = (option, id) => {
 export const PollOptionRemoved = () => {
     return {
         type: REMOVE_POLLOPTION,
+    }
+}
+
+
+export const requestAddNewOption = (data) => {
+    return {
+        type: REQUESTADD_NEWOPTION,
+        data
+    }
+}
+
+export const successAddNewOption = () => {
+    return {
+        type: SUCESSADD_NEWOPTION,
+    }
+}
+
+export const errorAddNewOption = () => {
+    return {
+        type: ERRORADD_NEWOPTION,
     }
 }

@@ -1,6 +1,6 @@
 import {
     REQUESTREMOVE_POLLOPTION,
-    REMOVE_POLLOPTION
+    REMOVE_POLLOPTION,
 } from '../Constant/Type';
 
 const initialState = {
