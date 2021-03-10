@@ -26,6 +26,8 @@ import {
     REQUESTADD_NEWOPTION,
     SUCESSADD_NEWOPTION,
     ERRORADD_NEWOPTION,
+    REQUEST_VOTE,
+    SUCESS_VOTE,
 } from '../Constant/Type';
 
 
@@ -217,5 +219,21 @@ export const successAddNewOption = () => {
 export const errorAddNewOption = () => {
     return {
         type: ERRORADD_NEWOPTION,
+    }
+}
+
+
+
+export const requestToVote = (optionText, pollId) => {
+    return {
+        type: REQUEST_VOTE,
+        optionText,
+        pollId
+    }
+}
+
+export const successVote = () => {
+    return {
+        type: SUCESS_VOTE,
     }
 }

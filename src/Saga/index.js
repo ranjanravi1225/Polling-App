@@ -12,6 +12,7 @@ import {
     REQUESTEDIT_TITLE,
     REQUESTREMOVE_POLLOPTION,
     REQUESTADD_NEWOPTION,
+    REQUEST_VOTE,
 } from '../Redux/Constant/Type';
 import { loginSaga } from './LoginSaga';
 import { addUserSaga } from './AddUserSaga';
@@ -22,6 +23,8 @@ import { removePollSaga } from './RemovePollSaga';
 import { editPollTitleSaga } from './EditPollTitleSaga';
 import { removePollOptionSaga } from './RemovePollOptionSaga';
 import { addNewOptionSaga } from './AddNewOptionSaga';
+import { voteSaga } from './VoteSaga';
+
 
 
 
@@ -35,6 +38,7 @@ function* watchMan() {
     yield takeLatest(REQUESTEDIT_TITLE, editPollTitleSaga);
     yield takeLatest(REQUESTREMOVE_POLLOPTION, removePollOptionSaga);
     yield takeLatest(REQUESTADD_NEWOPTION, addNewOptionSaga);
+    yield takeLatest(REQUEST_VOTE, voteSaga);
 
 }
 

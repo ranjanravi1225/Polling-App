@@ -10,11 +10,12 @@ import {
 } from "react-native";
 import AntDesign from 'react-native-vector-icons/AntDesign';
 import { requestRemovePoll } from '../Redux/Action/action';
-import { requestEditTitle, requestRemovePollOption, requestAddNewOption } from '../Redux/Action/action';
+import { requestEditTitle, requestRemovePollOption, requestAddNewOption, requestToVote } from '../Redux/Action/action';
 import { connect } from "react-redux";
 import { Colors } from "./Colors";
 import UpdatePollTitle from './UpdatePollTitle';
 import NewOptionModal from './/NewOptionModal';
+import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 
 
 
@@ -35,6 +36,8 @@ const PollData = (props) => {
     const showOptionModal = () => {
         setNewOptionModalValue(!newOptionModalValue);
     }
+
+
 
     const removePollAlert = () =>
         Alert.alert(
@@ -92,7 +95,19 @@ const PollData = (props) => {
                         keyExtractor={(item, idx) => idx.toString()}
                         renderItem={({ item, index }) => (
                             <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
-                                <Text style={{ fontSize: 15, marginTop: 10 }}> {index + 1}: {item.option} </Text>
+                                <View style={{ flexDirection: 'row', justifyContent: 'flex-start' }}>
+                                    <TouchableOpacity
+                                        style={{ marginTop: 10 }}
+                                        onPress={() => props.requestToVote(item.option, props.item._id)}
+                                    >
+                                        <Icon
+                                            name="checkbox-blank-circle-outline"
+                                            size={20}
+                                            color={Colors.skyBlue}
+                                        />
+                                    </TouchableOpacity>
+                                    <Text style={{ fontSize: 15, marginTop: 10 }}> {item.option} </Text>
+                                </View>
                                 <TouchableOpacity
                                     style={{ marginTop: 10 }}
                                     onPress={() =>
@@ -176,6 +191,8 @@ const mapdispatchToProps = (Dispatch) => {
         requestEditTitle: (data) => Dispatch(requestEditTitle(data)),
         requestRemovePollOption: (option, id) => Dispatch(requestRemovePollOption(option, id)),
         requestAddNewOption: (data) => Dispatch(requestAddNewOption(data)),
+        requestToVote: (optionText, pollId) => Dispatch(requestToVote(optionText, pollId)),
+
     };
 };
 

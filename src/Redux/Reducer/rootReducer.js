@@ -8,7 +8,7 @@ import removePollReducer from './RemovePollReducer';
 import editPollTitleReducer from './EditPollTitleReducer';
 import removePollOptionReducer from './RemovePollOptionReducer';
 import addNewOptionReducer from './AddNewOptionReducer';
-
+import voteReducer from './VoteReducer';
 
 
 
@@ -22,7 +22,8 @@ const rootReducer = combineReducers({
     removePoll: removePollReducer,
     editPollTitle: editPollTitleReducer,
     removePollOption: removePollOptionReducer,
-    newOption: addNewOptionReducer
+    newOption: addNewOptionReducer,
+    vote: voteReducer
 })
 
 export default rootReducer;
