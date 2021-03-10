@@ -10,7 +10,7 @@ import {
 } from "react-native";
 import AntDesign from 'react-native-vector-icons/AntDesign';
 import { requestRemovePoll } from '../Redux/Action/action';
-import { requestEditTitle } from '../Redux/Action/action';
+import { requestEditTitle, requestRemovePollOption } from '../Redux/Action/action';
 import { connect } from "react-redux";
 import { Colors } from "./Colors";
 import UpdatePollTitle from './UpdatePollTitle';
@@ -35,7 +35,6 @@ const PollData = (props) => {
             [
                 {
                     text: "Cancel",
-                    onPress: () => console.log("Cancel Pressed"),
                 },
                 { text: "OK", onPress: () => props.requestRemovePoll(props.item._id) }
             ],
@@ -65,7 +64,26 @@ const PollData = (props) => {
                         data={props.item.options}
                         keyExtractor={(item, idx) => idx.toString()}
                         renderItem={({ item, index }) => (
-                            <Text style={{ fontSize: 15, margin: 5 }}> {index + 1}: {item.option} </Text>
+                            <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
+                                <Text style={{ fontSize: 15, margin: 5 }}> {index + 1}: {item.option} </Text>
+                                <TouchableOpacity
+                                    onPress={() =>
+                                        Alert.alert(
+                                            "Confirmation",
+                                            "Do you want to delete this Poll Option?",
+                                            [
+                                                {
+                                                    text: "Cancel",
+                                                },
+                                                { text: "OK", onPress: () => props.requestRemovePollOption(item.option, props.item._id) }
+                                            ],
+                                            { cancelable: false }
+                                        )
+                                    }
+                                >
+                                    <AntDesign name='delete' size={20} />
+                                </TouchableOpacity>
+                            </View>
                         )}
                     />
                 </View>
@@ -86,7 +104,6 @@ const PollData = (props) => {
                     requestEditTitle={props.requestEditTitle}
                     editTitle={editTitle}
                     editid={editid}
-
                 />
             ) : null}
         </>
@@ -117,7 +134,8 @@ const mapStateToProps = (state) => {
 const mapdispatchToProps = (Dispatch) => {
     return {
         requestRemovePoll: (id) => Dispatch(requestRemovePoll(id)),
-        requestEditTitle: (data) => Dispatch(requestEditTitle(data))
+        requestEditTitle: (data) => Dispatch(requestEditTitle(data)),
+        requestRemovePollOption: (option, id) => Dispatch(requestRemovePollOption(option, id)),
     };
 };
 

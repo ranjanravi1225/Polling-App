@@ -21,6 +21,8 @@ import {
     REQUESTREMOVE_POLL,
     REQUESTEDIT_TITLE,
     SUCCESSEDIT_TITLE,
+    REQUESTREMOVE_POLLOPTION,
+    REMOVE_POLLOPTION
 } from '../Constant/Type';
 
 
@@ -177,5 +179,20 @@ export const requestEditTitle = (data) => {
 export const successEditTitle = () => {
     return {
         type: SUCCESSEDIT_TITLE,
+    }
+}
+
+
+export const requestRemovePollOption = (option, id) => {
+    return {
+        type: REQUESTREMOVE_POLLOPTION,
+        option,
+        id
+    }
+}
+
+export const PollOptionRemoved = () => {
+    return {
+        type: REMOVE_POLLOPTION,
     }
 }
