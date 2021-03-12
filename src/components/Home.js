@@ -13,20 +13,14 @@ import AllUsers from './AllUsers';
 import AllPolls from './AllPolls';
 import ScreenHeader from './ScreenHeader';
 import AddPoll from './AddPoll';
+import { connect } from "react-redux";
+
+
 
 
 const Drawer = createDrawerNavigator();
 
 const CustomDrawerContent = (props) => {
-
-    const [name, setName] = useState();
-
-    useEffect(() => {
-        (async () => {
-            const username = await AsyncStorage.getItem('username');
-            setName(username);
-        })();
-    }, []);
 
     return (
         <View style={{ flex: 1 }}>
@@ -34,15 +28,15 @@ const CustomDrawerContent = (props) => {
                 <View style={styles.profileView}>
                     <FontAwesome5 name="user-alt" size={25} />
                     <Text style={{ fontSize: 20 }}> Hello, </Text>
-                    <Text style={{ fontWeight: 'bold', fontSize: 20 }}> {name} </Text>
+                    <Text style={{ fontWeight: 'bold', fontSize: 20 }}> {props.name} </Text>
                 </View>
                 <DrawerItemList {...props} />
             </DrawerContentScrollView>
             <TouchableOpacity
                 style={styles.logOutTouchable}
                 onPress={async () => {
-                    await AsyncStorage.clear();
                     props.navigation.navigate('Login')
+                    await AsyncStorage.clear();
                 }
                 }
             >
@@ -100,13 +94,32 @@ const allPolls = ({ navigation }) => {
 }
 
 
-export default function Home() {
+const Home = (props) => {
+
+    const [role, setRole] = useState('')
+    const [name, setName] = useState();
+
+    useEffect(() => {
+        (async () => {
+            if (props.loginStatus) {
+                const role = await AsyncStorage.getItem('role');
+                const username = await AsyncStorage.getItem('username');
+                setName(username);
+                setRole(role);
+            }
+        })();
+    }, [props.loginStatus]);
+
     return (
-        <Drawer.Navigator initialRouteName="Home" drawerContent={props => <CustomDrawerContent {...props} />}>
+        <Drawer.Navigator initialRouteName="Home" drawerContent={props => <CustomDrawerContent {...props} name={name} />}>
             <Drawer.Screen name="Home" component={MyDrawer} />
-            <Drawer.Screen name="Add User" component={addUser} />
+            {role === 'admin' ?
+                <Drawer.Screen name="Add User" component={addUser} />
+                : null}
             <Drawer.Screen name="All Users" component={allUsers} />
-            <Drawer.Screen name="Add Poll" component={addPoll} />
+            {role === 'admin' ?
+                <Drawer.Screen name="Add Poll" component={addPoll} />
+                : null}
             <Drawer.Screen name="All Polls" component={allPolls} />
         </Drawer.Navigator>
     )
@@ -141,3 +154,12 @@ const styles = StyleSheet.create({
         color: Colors.white
     }
 })
+
+const mapStateToProps = (state) => {
+
+    return {
+        loginStatus: state.login.isSuccess
+    };
+};
+
+export default connect(mapStateToProps, null)(Home);

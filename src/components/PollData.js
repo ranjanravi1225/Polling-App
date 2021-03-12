@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import {
     FlatList,
     StyleSheet,
@@ -16,6 +16,8 @@ import { Colors } from "./Colors";
 import UpdatePollTitle from './UpdatePollTitle';
 import NewOptionModal from './/NewOptionModal';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
+import AsyncStorage from '@react-native-community/async-storage';
+
 
 
 
@@ -36,7 +38,6 @@ const PollData = (props) => {
     const showOptionModal = () => {
         setNewOptionModalValue(!newOptionModalValue);
     }
-
 
 
     const removePollAlert = () =>
@@ -65,6 +66,16 @@ const PollData = (props) => {
         setNewOptionId(newOption._id)
     }
 
+    const [role, setRole] = useState('')
+    useEffect(() => {
+        (async () => {
+            if (props.loginStatus) {
+                const role = await AsyncStorage.getItem('role');
+                setRole(role);
+            }
+        })();
+    }, [props.loginStatus]);
+
     return (
         <>
             <View style={styles.flatlistView}>
@@ -78,17 +89,19 @@ const PollData = (props) => {
                         >
                             <Text style={{ fontWeight: 'bold', fontSize: 15 }}> {props.index} : {props.item.title} </Text>
                         </TouchableOpacity>
-                        <TouchableOpacity
-                            onPress={() => {
-                                getPollKey(props.item._id)
-                            }}
-                        >
-                            <AntDesign
-                                name="pluscircleo"
-                                size={20}
-                                color={Colors.skyBlue}
-                            />
-                        </TouchableOpacity>
+                        {role === 'admin' ?
+                            <TouchableOpacity
+                                onPress={() => {
+                                    getPollKey(props.item._id)
+                                }}
+                            >
+                                <AntDesign
+                                    name="pluscircleo"
+                                    size={20}
+                                    color={Colors.skyBlue}
+                                />
+                            </TouchableOpacity>
+                            : null}
                     </View>
                     <FlatList
                         data={props.item.options}
@@ -108,38 +121,42 @@ const PollData = (props) => {
                                     </TouchableOpacity>
                                     <Text style={{ fontSize: 15, marginTop: 10 }}> {item.option} </Text>
                                 </View>
-                                <TouchableOpacity
-                                    style={{ marginTop: 10 }}
-                                    onPress={() =>
-                                        Alert.alert(
-                                            "Confirmation",
-                                            "Do you want to delete this Poll Option?",
-                                            [
-                                                {
-                                                    text: "Cancel",
-                                                },
-                                                { text: "OK", onPress: () => props.requestRemovePollOption(item.option, props.item._id) }
-                                            ],
-                                            { cancelable: false }
-                                        )
-                                    }
-                                >
-                                    <AntDesign name='delete' size={20} />
-                                </TouchableOpacity>
+                                {role === 'admin' ?
+                                    <TouchableOpacity
+                                        style={{ marginTop: 10 }}
+                                        onPress={() =>
+                                            Alert.alert(
+                                                "Confirmation",
+                                                "Do you want to delete this Poll Option?",
+                                                [
+                                                    {
+                                                        text: "Cancel",
+                                                    },
+                                                    { text: "OK", onPress: () => props.requestRemovePollOption(item.option, props.item._id) }
+                                                ],
+                                                { cancelable: false }
+                                            )
+                                        }
+                                    >
+                                        <AntDesign name='delete' size={20} />
+                                    </TouchableOpacity>
+                                    : null}
                             </View>
                         )}
                     />
                 </View>
                 <View style={styles.deleteView}>
-                    <TouchableOpacity
-                        onPress={removePollAlert}
-                    >
-                        <AntDesign name='delete' size={35} />
-                    </TouchableOpacity>
+                    {role === 'admin' ?
+                        <TouchableOpacity
+                            onPress={removePollAlert}
+                        >
+                            <AntDesign name='delete' size={35} />
+                        </TouchableOpacity>
+                        : null}
 
                 </View>
             </View>
-            {modalValue ? (
+            {modalValue && role === 'admin' ? (
                 <UpdatePollTitle
                     modalValue={modalValue}
                     setModalValue={setModalValue}
@@ -180,8 +197,10 @@ const styles = StyleSheet.create({
 });
 
 const mapStateToProps = (state) => {
+
     return {
         pollData: state.allPolls.pollData,
+        loginStatus: state.login.isSuccess
     };
 };
 
