@@ -21,6 +21,13 @@ import {
     REQUESTREMOVE_POLL,
     REQUESTEDIT_TITLE,
     SUCCESSEDIT_TITLE,
+    REQUESTREMOVE_POLLOPTION,
+    REMOVE_POLLOPTION,
+    REQUESTADD_NEWOPTION,
+    SUCESSADD_NEWOPTION,
+    ERRORADD_NEWOPTION,
+    REQUEST_VOTE,
+    SUCESS_VOTE,
 } from '../Constant/Type';
 
 
@@ -177,5 +184,56 @@ export const requestEditTitle = (data) => {
 export const successEditTitle = () => {
     return {
         type: SUCCESSEDIT_TITLE,
+    }
+}
+
+
+export const requestRemovePollOption = (option, id) => {
+    return {
+        type: REQUESTREMOVE_POLLOPTION,
+        option,
+        id
+    }
+}
+
+export const PollOptionRemoved = () => {
+    return {
+        type: REMOVE_POLLOPTION,
+    }
+}
+
+
+export const requestAddNewOption = (data) => {
+    return {
+        type: REQUESTADD_NEWOPTION,
+        data
+    }
+}
+
+export const successAddNewOption = () => {
+    return {
+        type: SUCESSADD_NEWOPTION,
+    }
+}
+
+export const errorAddNewOption = () => {
+    return {
+        type: ERRORADD_NEWOPTION,
+    }
+}
+
+
+
+export const requestToVote = (optionText, pollId) => {
+    return {
+        type: REQUEST_VOTE,
+        optionText,
+        pollId
+    }
+}
+
+export const successVote = () => {
+    return {
+        type: SUCESS_VOTE,
     }
 }

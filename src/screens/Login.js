@@ -1,8 +1,10 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { StyleSheet, TextInput, View, Text, TouchableOpacity, ActivityIndicator } from 'react-native';
 import { Colors } from '../components/Colors';
 import { connect } from 'react-redux';
 import { loginRequested } from '../Redux/Action/action';
+import AsyncStorage from '@react-native-community/async-storage';
+
 
 
 const Login = (props) => {
@@ -16,6 +18,13 @@ const Login = (props) => {
         "password": password,
         "navigation": props.navigation,
     }
+
+    useEffect(() => {
+        (async () => {
+            const username = await AsyncStorage.getItem('username');
+            const role = await AsyncStorage.getItem('role');
+        })();
+    }, []);
 
     return (
         <View style={styles.container}>
@@ -44,17 +53,7 @@ const Login = (props) => {
                     <Text style={styles.opacityText}> Log In </Text>
                 </TouchableOpacity>
             }
-            {/* <View style={styles.lastView}>
-                <Text style={styles.lastViewText}> Don't have an account ? </Text>
-                <Text
-                    style={styles.lastText}
-                    onPress={() => props.navigation.navigate('SignUp')}
-                >
-                    Sign Up
-                </Text>
-            </View> */}
-            {/* {props.isError ? <Text> </Text>} */}
-            {/* {props.isSuccess ? props.navigation.navigate('Home') : null} */}
+
         </View>
     )
 }

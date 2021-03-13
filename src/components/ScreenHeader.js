@@ -16,7 +16,7 @@ const ScreenHeader = (props) => {
                 <Text style={styles.headerText}> {props.type} </Text>
             </View>
 
-            {props.isLoading ?
+            {props.isLoading || props.loading ?
                 <View style={styles.loaderView}>
                     <ActivityIndicator size={50} color={Colors.skyBlue} />
                 </View>
@@ -60,6 +60,7 @@ const styles = StyleSheet.create({
 const mapStateToProps = (state) => {
     return {
         isLoading: state.removePoll.isLoading,
+        loading: state.removePollOption.isLoading
     };
 };
 
