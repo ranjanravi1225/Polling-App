@@ -21,8 +21,6 @@ import AsyncStorage from '@react-native-community/async-storage';
 
 
 
-
-
 const PollData = (props) => {
 
     const [modalValue, setModalValue] = useState(false);
@@ -69,6 +67,12 @@ const PollData = (props) => {
     const [role, setRole] = useState('')
     useEffect(() => {
         (async () => {
+            const role = await AsyncStorage.getItem('role');
+            setRole(role);
+        })();
+    }, []);
+    useEffect(() => {
+        (async () => {
             if (props.loginStatus) {
                 const role = await AsyncStorage.getItem('role');
                 setRole(role);
@@ -79,35 +83,49 @@ const PollData = (props) => {
     return (
         <>
             <View style={styles.flatlistView}>
-                <View style={{ width: Dimensions.get('window').width - 80, }}>
-                    <View style={{ flexDirection: 'row', justifyContent: 'space-between', backgroundColor: Colors.lightGray }}>
-                        <TouchableOpacity
-                            style={{ backgroundColor: Colors.lightGray }}
-                            onPress={() => {
-                                updatePollTitle(props.item.title, props.item._id)
-                            }}
-                        >
-                            <Text style={{ fontWeight: 'bold', fontSize: 15 }}> {props.index} : {props.item.title} </Text>
-                        </TouchableOpacity>
-                        {role === 'admin' ?
+                <View style={{ width: Dimensions.get('window').width - 20, }}>
+                    <View style={{ flexDirection: 'row', justifyContent: 'space-between', backgroundColor: Colors.lightGray, alignItems: 'center', alignContent: 'center' }}>
+                        <View>
                             <TouchableOpacity
+                                style={{ backgroundColor: Colors.lightGray, height: 40, alignItems: 'center', justifyContent: 'center' }}
                                 onPress={() => {
-                                    getPollKey(props.item._id)
+                                    updatePollTitle(props.item.title, props.item._id)
                                 }}
                             >
-                                <AntDesign
-                                    name="pluscircleo"
-                                    size={20}
-                                    color={Colors.skyBlue}
-                                />
+                                <Text style={{ fontWeight: 'bold', fontSize: 18 }}> {props.index} : {props.item.title} </Text>
                             </TouchableOpacity>
+                        </View>
+                        {role === 'admin' ?
+
+                            <View style={{ flexDirection: 'row', justifyContent: 'space-evenly', alignItems: 'center', alignContent: 'center' }}>
+                                <TouchableOpacity
+                                    style={{ marginRight: 20 }}
+                                    onPress={() => {
+                                        getPollKey(props.item._id)
+                                    }}
+                                >
+                                    <AntDesign
+                                        name="pluscircleo"
+                                        size={25}
+                                        color={Colors.skyBlue}
+                                    />
+                                </TouchableOpacity>
+                                <View >
+                                    <TouchableOpacity
+                                        onPress={removePollAlert}
+                                    >
+                                        <AntDesign name='delete' size={30} />
+                                    </TouchableOpacity>
+
+                                </View>
+                            </View>
                             : null}
                     </View>
                     <FlatList
                         data={props.item.options}
                         keyExtractor={(item, idx) => idx.toString()}
                         renderItem={({ item, index }) => (
-                            <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
+                            <View style={{ flexDirection: 'row', justifyContent: 'space-between', marginBottom: 10 }}>
                                 <View style={{ flexDirection: 'row', justifyContent: 'flex-start' }}>
                                     <TouchableOpacity
                                         style={{ marginTop: 10 }}
@@ -123,7 +141,7 @@ const PollData = (props) => {
                                 </View>
                                 {role === 'admin' ?
                                     <TouchableOpacity
-                                        style={{ marginTop: 10 }}
+                                        style={{ marginTop: 20 }}
                                         onPress={() =>
                                             Alert.alert(
                                                 "Confirmation",
@@ -144,16 +162,6 @@ const PollData = (props) => {
                             </View>
                         )}
                     />
-                </View>
-                <View style={styles.deleteView}>
-                    {role === 'admin' ?
-                        <TouchableOpacity
-                            onPress={removePollAlert}
-                        >
-                            <AntDesign name='delete' size={35} />
-                        </TouchableOpacity>
-                        : null}
-
                 </View>
             </View>
             {modalValue && role === 'admin' ? (
@@ -187,13 +195,8 @@ const styles = StyleSheet.create({
         minHeight: 70,
         minWidth: 70,
         borderBottomWidth: 1,
-        paddingLeft: 10
+        paddingLeft: 10,
     },
-    deleteView: {
-        alignItems: 'center',
-        justifyContent: 'center',
-        padding: 15
-    }
 });
 
 const mapStateToProps = (state) => {

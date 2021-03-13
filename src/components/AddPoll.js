@@ -55,6 +55,7 @@ const AddPoll = (props) => {
                         style={styles.optionTouchable}
                         onPress={() => {
                             props.addOption(optionText)
+                            setOptionText('')
                         }}
                     >
                         <Text style={styles.touchableText}> Add Option </Text>

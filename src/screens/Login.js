@@ -3,7 +3,6 @@ import { StyleSheet, TextInput, View, Text, TouchableOpacity, ActivityIndicator 
 import { Colors } from '../components/Colors';
 import { connect } from 'react-redux';
 import { loginRequested } from '../Redux/Action/action';
-import AsyncStorage from '@react-native-community/async-storage';
 
 
 
@@ -19,12 +18,6 @@ const Login = (props) => {
         "navigation": props.navigation,
     }
 
-    useEffect(() => {
-        (async () => {
-            const username = await AsyncStorage.getItem('username');
-            const role = await AsyncStorage.getItem('role');
-        })();
-    }, []);
 
     return (
         <View style={styles.container}>
