@@ -29,7 +29,6 @@ export function* loginSaga(action) {
                     })
             })
             if (responseToken) {
-                console.log(responseToken, 'hhhhhhhh');
                 yield put(loginSuccess(responseToken))
 
             } else {

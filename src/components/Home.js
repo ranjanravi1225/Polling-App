@@ -46,14 +46,6 @@ const CustomDrawerContent = (props) => {
     );
 }
 
-const MyDrawer = ({ navigation }) => {
-    return (
-        <SafeAreaView style={styles.container}>
-            <ScreenHeader navigation={navigation} type="Home" />
-        </SafeAreaView>
-    )
-}
-
 
 const addUser = ({ navigation }) => {
     return (
@@ -110,9 +102,18 @@ const Home = (props) => {
         })();
     }, [props.loginStatus]);
 
+    useEffect(() => {
+        (async () => {
+            const role = await AsyncStorage.getItem('role');
+            const username = await AsyncStorage.getItem('username');
+            setName(username);
+            setRole(role);
+        })();
+    }, []);
+
+
     return (
-        <Drawer.Navigator initialRouteName="Home" drawerContent={props => <CustomDrawerContent {...props} name={name} />}>
-            <Drawer.Screen name="Home" component={MyDrawer} />
+        <Drawer.Navigator initialRouteName="All Polls" drawerContent={props => <CustomDrawerContent {...props} name={name} />}>
             {role === 'admin' ?
                 <Drawer.Screen name="Add User" component={addUser} />
                 : null}

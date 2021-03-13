@@ -46,7 +46,7 @@ const NewOptionModal = (props) => {
                                         props.requestAddNewOption(data)
                                     }}
                                 >
-                                    <Text style={styles.textStyle}>Update</Text>
+                                    <Text style={styles.textStyle}>Add option</Text>
                                 </TouchableOpacity>
                             }
                         </View>
