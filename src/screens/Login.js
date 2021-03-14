@@ -46,7 +46,11 @@ const Login = (props) => {
                     <Text style={styles.opacityText}> Log In </Text>
                 </TouchableOpacity>
             }
-
+                <View style={styles.noteView}>
+                    <Text style={{fontSize:20}}>
+                        Note* Please fill admin as Username and Password
+                    </Text>
+                </View>
         </View>
     )
 }
@@ -96,7 +100,17 @@ const styles = StyleSheet.create({
         fontSize: 22,
         borderBottomWidth: 1,
         color: Colors.skyBlue,
-    }
+    },
+    noteView: {
+        height: 50,
+        justifyContent: 'center',
+        alignItems: 'center',
+        borderRadius: 20,
+        width: 200,
+        alignSelf: 'center',
+        margin: 10,
+        marginBottom: 20,
+    },
 });
 
 
